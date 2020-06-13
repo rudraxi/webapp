@@ -26,11 +26,15 @@ const getWeatherReport = async function (city) {
 }
 const getAllWeatherReports = async function (){
     const dailyReports = [];
-    dailyReports.push(await getWeatherReport(cityConstants.SYDNEY));
-    dailyReports.push(await getWeatherReport(cityConstants.MELBOURNE));
-    dailyReports.push(await getWeatherReport(cityConstants.BRISBANE));
-    dailyReports.push(await getWeatherReport(cityConstants.ADELAIDE));
-    dailyReports.push(await getWeatherReport(cityConstants.PERTH));
+    for (city of cityConstants.values()) {
+        
+        dailyReport.push(await getWeatherReport(cityConstants.CITIESMAP.get(city)));
+    }
+    // dailyReports.push(await getWeatherReport(cityConstants.SYDNEY));
+    // dailyReports.push(await getWeatherReport(cityConstants.MELBOURNE));
+    // dailyReports.push(await getWeatherReport(cityConstants.BRISBANE));
+    // dailyReports.push(await getWeatherReport(cityConstants.ADELAIDE));
+    // dailyReports.push(await getWeatherReport(cityConstants.PERTH));
 
     return dailyReports;
 
