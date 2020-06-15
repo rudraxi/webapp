@@ -2,7 +2,6 @@ version: 2
 
 defaults: &defaults
   machine:
-    docker_layer_caching: true
   environment:
     - APP_VERSION: $CIRCLE_SHA1
 
