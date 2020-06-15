@@ -1,0 +1,38 @@
+version: 2
+
+defaults: &defaults
+  machine:
+    docker_layer_caching: true
+  environment:
+    - APP_VERSION: $CIRCLE_SHA1
+
+jobs:
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: docker build -t $DOCKER_IMAGE:latest .
+      - run: docker run -d --rm --name node_app $DOCKER_IMAGE:latest
+      - run: docker stop node_app
+
+  publish:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: docker build --build-arg APP_VERSION=$CIRCLE_SHA1 -t $DOCKER_IMAGE:$CIRCLE_SHA1 .
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker push $DOCKER_IMAGE:$CIRCLE_SHA1
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - test:
+          context: webApp
+      - publish:
+          requires:
+            - test
+          context: webApp
+          filters:
+            branches:
+              only: master
