@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 orbs:
     gcp-gcr: circleci/gcp-gcr@0.6.1
     cloudrun: circleci/gcp-cloud-run@1.0.0
@@ -31,6 +31,7 @@ jobs:
     machine: true
     <<: *defaults
     steps:
+      - checkout  
       - gcp-gcr/gcr-auth:
          gcloud-service-key: GOOGLE_CLOUD_KEYS
          google-project-id: GOOGLE_PROJECT_ID
