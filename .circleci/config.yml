@@ -25,6 +25,7 @@ jobs:
       - checkout
       - setup_remote_docker:
          docker_layer_caching: false
+      - run: docker build -t us.gcr.io/$GOOGLE_PROJECT_ID/$DOCKER_IMAGE -t us.gcr.io/$GOOGLE_PROJECT_ID/$DOCKER_IMAGE:latest .
       - run:
          name: Set environment variables
          command: |
