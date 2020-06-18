@@ -26,6 +26,7 @@ jobs:
       - run: docker build --build-arg APP_VERSION=$CIRCLE_SHA1 -t $DOCKER_IMAGE:$CIRCLE_SHA1 .
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: docker push $DOCKER_IMAGE:$CIRCLE_SHA1
+  
   deploy:
     docker:
         - image: circleci/python:3.7.4
