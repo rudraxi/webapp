@@ -28,10 +28,12 @@ jobs:
       - run: docker push $DOCKER_IMAGE:$CIRCLE_SHA1
   
   deploy:
-    machine: true
-    <<: *defaults
+    docker:
+      - image: circleci/python:3.7.4
     steps:
       - checkout
+      - setup_remote_docker:
+         docker_layer_caching: false
       - run:
          name: Set environment variables
          command: |
