@@ -42,7 +42,7 @@ jobs:
       - run: cat ${HOME}/gcloud-service-key.json
       - run: echo ${GCP_PROJECT_KEY}
       - run: ls ${HOME}
-      
+
       - gcp-gcr/gcr-auth:
          gcloud-service-key: GOOGLE_CLOUD_KEYS
          google-project-id: GOOGLE_PROJECT_ID
@@ -69,6 +69,7 @@ workflows:
             branches:
               only: master
       - deploy:
-            requires:
-                - publish
+        requires:
+            - publish
+          context: webApp
 
