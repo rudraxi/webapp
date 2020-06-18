@@ -40,9 +40,11 @@ jobs:
           echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV
           echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
           echo 'export GOOGLE_CLOUD_KEYS=$(cat $HOME/gcloud-service-key.json)' >> $BASH_ENV
-            echo 'export TAG=${CIRCLE_SHA1}' >> $BASH_ENV
+          echo 'export TAG=${CIRCLE_SHA1}' >> $BASH_ENV
       - run: cat /home/circleci/gcloud-service-key.json
       - run: echo ${GOOGLE_CLOUD_KEYS}
+      - run: echo ${GOOGLE_PROJECT_ID}
+      - run: echo ${GOOGLE_COMPUTE_ZONE}
       - run: ls /home/circleci/gcloud-service-key.json
 
       - gcp-gcr/gcr-auth:
