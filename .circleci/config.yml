@@ -36,11 +36,11 @@ jobs:
             google-project-id: GOOGLE_PROJECT_ID
             google-compute-zone: GOOGLE_COMPUTE_ZONE
         - cloudrun/deploy:
-          platform: "managed"
-          image: "docker.io/$DOCKER_USER/$DOCKER_IMAGE:$CIRCLE_SHA1"
-          service-name: "orb-gcp-cloud-run"
-          region: $GOOGLE_COMPUTE_ZONE
-          unauthenticated: true        
+            platform: "managed"
+            image: "docker.io/$DOCKER_USER/$DOCKER_IMAGE:$CIRCLE_SHA1"
+            service-name: "orb-gcp-cloud-run"
+            region: $GOOGLE_COMPUTE_ZONE
+            unauthenticated: true        
 
 
 workflows:
