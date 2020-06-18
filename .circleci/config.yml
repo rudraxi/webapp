@@ -61,15 +61,8 @@ workflows:
     jobs:
       - test:
           context: webApp
-      - publish:
-          requires:
-            - test
-          context: webApp
-          filters:
-            branches:
-              only: master
       - deploy:
           requires:
-            - publish
+            - test
           context: webApp
 
