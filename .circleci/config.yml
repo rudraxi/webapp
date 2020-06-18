@@ -17,17 +17,8 @@ jobs:
       - run: docker build -t $DOCKER_IMAGE:latest .
       - run: docker run -d --rm --name node_app $DOCKER_IMAGE:latest
       - run: docker stop node_app
-
-  publish:
-    machine: true
-    <<: *defaults
-    steps:
-      - checkout
-      - run: docker build --build-arg APP_VERSION=$CIRCLE_SHA1 -t $DOCKER_IMAGE:$CIRCLE_SHA1 .
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run: docker push $DOCKER_IMAGE:$CIRCLE_SHA1
   
-  deploy:
+  publish_and_deploy:
     docker:
       - image: circleci/python:3.7.4
     steps:
@@ -51,9 +42,14 @@ jobs:
          gcloud-service-key: GOOGLE_CLOUD_KEYS
          google-project-id: GOOGLE_PROJECT_ID
          google-compute-zone: GOOGLE_COMPUTE_ZONE
+
+      - gcp-gcr/push-image:
+         google-project-id: GOOGLE_PROJECT_ID
+         registry-url: "us.gcr.io"
+         image: $DOCKER_IMAGE:latest   
       - cloudrun/deploy:
          platform: "managed"
-         image: "docker.io/$DOCKER_USER/$DOCKER_IMAGE:$CIRCLE_SHA1"
+         image: "us.gcr.io/$GOOGLE_PROJECT_ID/$IMAGE_NAME"
          service-name: "orb-gcp-cloud-run"
          region: $GOOGLE_COMPUTE_ZONE
          unauthenticated: true        
