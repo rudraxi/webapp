@@ -25,10 +25,10 @@ const getWeatherReport = async function (city) {
     return await dailyReport;
 }
 const getAllWeatherReports = async function (){
-    const dailyReports = [];
-    for (city of cityConstants.values()) {
+    const dailyReports = []
+    for (city of cityConstants.CITIESMAP.values()) {
         
-        dailyReport.push(await getWeatherReport(cityConstants.CITIESMAP.get(city)));
+        dailyReports.push(await getWeatherReport(city));
     }
     // dailyReports.push(await getWeatherReport(cityConstants.SYDNEY));
     // dailyReports.push(await getWeatherReport(cityConstants.MELBOURNE));
