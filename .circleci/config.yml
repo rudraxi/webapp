@@ -14,7 +14,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run: docker build -t $DOCKER_IMAGE .
+      - run: docker build -t $DOCKER_IMAGE:latest .
       - run: docker run -d --rm --name node_app $DOCKER_IMAGE:latest
       - run: docker stop node_app
   
