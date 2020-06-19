@@ -45,7 +45,7 @@ jobs:
        - cloudrun/deploy:
            platform: "managed"
            image: "us.gcr.io/$GOOGLE_PROJECT_ID/$DOCKER_IMAGE"
-           service-name: "orb-gcp-cloud-run"
+           service-name: $DOCKER_IMAGE
            region: $GOOGLE_COMPUTE_ZONE
            unauthenticated: true         
    
